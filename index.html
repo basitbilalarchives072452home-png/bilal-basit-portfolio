@@ -7,7 +7,40 @@ export default function BilalBasitPortfolio() {
   const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
   const [copied, setCopied] = useState(false);
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDdfLjz0vUdwQ_rA6nZh7Q_pyNr12peDyVIq4TjOWfduPahoMsREowZtiZuJOQkdH9/exec";
 
+  const submitProjectBrief = (event) => {
+      event.preventDefault();
+      const captchaInput = document.getElementById('captcha-answer').value;
+      if (parseInt(captchaInput) !== 8) {
+          alert("Security Check Failed: Please answer the math question correctly!");
+          return;
+      }
+
+      const payload = {
+          scope: document.getElementById('project-scope').value,
+          name: document.getElementById('client-name').value,
+          email: document.getElementById('client-email').value,
+          budget: document.getElementById('project-budget').value,
+          timeline: document.getElementById('project-timeline').value,
+          details: document.getElementById('project-details').value
+      };
+
+      fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+      })
+      .then(() => {
+          alert("Brief sent successfully! Data saved and notification sent to your email.");
+          document.getElementById('brief-form').reset();
+      })
+      .catch((error) => {
+          console.error('Error!', error);
+          alert("Something went wrong. Please try again.");
+      });
+  };
   // Live Islamabad Clock Timer & Custom Cursor Physics
   useEffect(() => {
     const updateClock = () => {
@@ -399,7 +432,16 @@ export default function BilalBasitPortfolio() {
         <p className="text-slate-400 text-sm mb-10 max-w-lg mx-auto">
           Reach out directly via email or copy my professional contact address for project inquiries and agency partnerships.
         </p>
+<form onSubmit={submitProjectBrief} className="mt-8 flex flex-col gap-4 max-w-md mx-auto text-left">
+    <div className="flex flex-col gap-1">
+        <label className="text-xs text-slate-400">Security Check: What is 5 + 3?</label>
+        <input type="number" id="captcha-answer" placeholder="Enter answer (8)" required className="bg-slate-900 border border-slate-800 p-3 rounded-xl text-white text-sm outline-none focus:border-indigo-500" />
+    </div>
 
+    <button type="submit" className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/20 text-center">
+        Send Project Brief
+    </button>
+</form>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button 
             onClick={copyEmail}
