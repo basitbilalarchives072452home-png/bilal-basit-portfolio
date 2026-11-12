@@ -1,0 +1,441 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+
+export default function BilalBasitPortfolio() {
+  const [time, setTime] = useState('');
+  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
+  const [isHovered, setIsHovered] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Live Islamabad Clock Timer & Custom Cursor Physics
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: 'Asia/Karachi',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      };
+      setTime(new Intl.DateTimeFormat('en-US', options).format(now));
+    };
+    updateClock();
+    const clockInterval = setInterval(updateClock, 1000);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      clearInterval(clockInterval);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('basitbilalarchives072452home@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
+  return (
+    <div className="bg-[#050507] text-[#F8FAFC] font-sans min-h-screen selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
+      
+      {/* Custom Magnetic Dual-Layer Cursor */}
+      <div 
+        className="fixed top-0 left-0 pointer-events-none z-50 transition-transform duration-75 ease-out hidden md:block"
+        style={{ transform: `translate3d(${cursorPos.x}px, ${cursorPos.y}px, 0)` }}
+      >
+        <div className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-200 ${isHovered ? 'w-20 h-20 bg-indigo-500/20 backdrop-blur-sm border border-indigo-400/50' : 'w-4 h-4 bg-indigo-400'}`} />
+      </div>
+
+      {/* Floating Glassmorphic Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#121218]/70 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 flex items-center justify-center font-bold text-lg tracking-wider shadow-lg shadow-indigo-500/30">
+            BB
+          </div>
+          <div>
+            <span className="font-bold tracking-tight text-white block text-sm">BILAL BASIT</span>
+            <span className="text-[10px] text-emerald-400 font-mono tracking-widest flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              AVAILABLE FOR PROJECTS
+            </span>
+          </div>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-8 text-sm text-slate-300 font-medium">
+          <a href="#work" className="hover:text-indigo-400 transition-colors">Work</a>
+          <a href="#capabilities" className="hover:text-indigo-400 transition-colors">Capabilities</a>
+          <a href="#agency" className="hover:text-indigo-400 transition-colors">Agency Partner</a>
+          <a href="#process" className="hover:text-indigo-400 transition-colors">Process</a>
+          <a href="#faq" className="hover:text-indigo-400 transition-colors">FAQ</a>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs text-slate-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span>ISB: {time || 'Loading...'}</span>
+          </div>
+          <a 
+            href="#contact" 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-lg shadow-indigo-600/30"
+          >
+            Let's Talk
+          </a>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative pt-36 pb-24 md:pt-48 md:pb-32 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
+        <div className="absolute inset-0 -z-10 flex items-center justify-center opacity-30 pointer-events-none">
+          <div className="w-[600px] h-[600px] bg-gradient-to-tr from-indigo-600/30 to-cyan-500/20 rounded-full blur-[120px]" />
+        </div>
+
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-indigo-400 mb-6">
+          <span>// FRONT-END ARCHITECT & FOUNDER @ APEX WEB STUDIO</span>
+        </div>
+
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight max-w-5xl leading-[1.1] mb-6">
+          Engineering Digital Experiences That Command <span className="bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">Authority.</span>
+        </h1>
+
+        <p className="text-lg sm:text-xl text-slate-400 max-w-3xl font-normal leading-relaxed mb-10">
+          I help ambitious brands and international creative agencies turn complex visions into ultra-fast, conversion-engineered web applications using React, Next.js, TypeScript, and modern 3D web architectures.
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
+          <a 
+            href="#work"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm tracking-wide transition-all shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2"
+          >
+            Explore Selected Work <span>↓</span>
+          </a>
+          <a 
+            href="#contact"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#121218] hover:bg-white/10 border border-white/10 text-white font-semibold text-sm tracking-wide transition-all flex items-center justify-center gap-2"
+          >
+            Start a Project <span>→</span>
+          </a>
+        </div>
+
+        {/* Hero Telemetry */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-12 border-t border-white/10 text-left">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+            <span className="block text-2xl font-bold text-white font-mono">100%</span>
+            <span className="text-xs text-slate-400">Lighthouse Performance</span>
+          </div>
+          <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+            <span className="block text-2xl font-bold text-indigo-400 font-mono">Next.js 15</span>
+            <span className="text-xs text-slate-400">Modern App Architecture</span>
+          </div>
+          <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+            <span className="block text-2xl font-bold text-emerald-400 font-mono">US, UK, EU</span>
+            <span className="text-xs text-slate-400">Global Agency Delivery</span>
+          </div>
+          <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+            <span className="block text-2xl font-bold text-white font-mono">Islamabad</span>
+            <span className="text-xs text-slate-400">Based & Working Worldwide</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Selected Works Showcase */}
+      <section id="work" className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
+          <div>
+            <span className="text-indigo-400 font-mono text-xs tracking-widest uppercase block mb-3">// 01. PORTFOLIO SHOWCASE</span>
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">Production-Ready Case Studies.</h2>
+          </div>
+          <p className="text-slate-400 max-w-md mt-4 md:mt-0 text-sm">
+            Live deployed client applications built for high conversion, flawless responsiveness, and elite visual execution.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          {/* Project 1 */}
+          <div 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group rounded-3xl bg-[#121218] border border-white/10 overflow-hidden p-8 hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between shadow-2xl"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono">Luxury Real Estate</span>
+                <span className="text-xs font-mono text-slate-500">01 / 05</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">Halloran & Vance</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                High-end architectural luxury real estate platform featuring high-contrast editorial typography, dynamic property showcases, and seamless mobile responsiveness.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+              <span className="text-xs font-mono text-slate-400">React • Tailwind • Netlify</span>
+              <a 
+                href="https://apex-halloran-vance.netlify.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-indigo-600 text-white text-xs font-semibold transition-all"
+              >
+                View Live Demo ↗
+              </a>
+            </div>
+          </div>
+
+          {/* Project 2 */}
+          <div 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group rounded-3xl bg-[#121218] border border-white/10 overflow-hidden p-8 hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between shadow-2xl"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">SaaS & AI Interface</span>
+                <span className="text-xs font-mono text-slate-500">02 / 05</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">Nexus AI</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                Futuristic artificial intelligence SaaS platform with interactive bento grids, onboarding flows, glassmorphism depth, and Vercel edge deployment.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+              <span className="text-xs font-mono text-slate-400">Next.js • TypeScript • Vercel</span>
+              <a 
+                href="https://nexus-mocha-iota.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-indigo-600 text-white text-xs font-semibold transition-all"
+              >
+                View Live Demo ↗
+              </a>
+            </div>
+          </div>
+
+          {/* Project 3 */}
+          <div 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group rounded-3xl bg-[#121218] border border-white/10 overflow-hidden p-8 hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between shadow-2xl"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">E-Commerce & Consumer UI</span>
+                <span className="text-xs font-mono text-slate-500">03 / 05</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">Craveria</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                Dynamic food ordering and restaurant e-commerce experience featuring smooth category filtering, interactive menus, and appetite-driven visual hierarchy.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+              <span className="text-xs font-mono text-slate-400">React • Tailwind CSS</span>
+              <a 
+                href="https://craveria-demo.netlify.app/#fastfood" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-indigo-600 text-white text-xs font-semibold transition-all"
+              >
+                View Live Demo ↗
+              </a>
+            </div>
+          </div>
+
+          {/* Project 4 */}
+          <div 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group rounded-3xl bg-[#121218] border border-white/10 overflow-hidden p-8 hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between shadow-2xl"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono">Hardware Flagship Launch</span>
+                <span className="text-xs font-mono text-slate-500">04 / 05</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">Apex Tech Landing</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                High-conversion flagship product landing page engineered for precision hardware storytelling, dark-mode lighting, and conversion architecture.
+              </p>
+            </div>
+            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+              <span className="text-xs font-mono text-slate-400">Next.js • Tailwind • Animation</span>
+              <a 
+                href="https://apex-phone-landing.netlify.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-indigo-600 text-white text-xs font-semibold transition-all"
+              >
+                View Live Demo ↗
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Technical Capabilities Matrix */}
+      <section id="capabilities" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
+        <span className="text-indigo-400 font-mono text-xs tracking-widest uppercase block mb-3">// 02. TECHNICAL ARSENAL</span>
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-16">Engineered for Absolute Excellence.</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="p-8 rounded-3xl bg-[#121218] border border-white/10">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl font-bold mb-6 font-mono">01</div>
+            <h3 className="text-xl font-bold text-white mb-3">Front-End Architecture</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              React 19, Next.js (App Router & SSR), TypeScript, and semantic HTML5 structures built for extreme speed and scalability.
+            </p>
+          </div>
+
+          <div className="p-8 rounded-3xl bg-[#121218] border border-white/10">
+            <div className="w-12 h-12 rounded-2xl bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl font-bold mb-6 font-mono">02</div>
+            <h3 className="text-xl font-bold text-white mb-3">Styling & Motion Systems</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Tailwind CSS mastery (since 2023), custom glassmorphism, fluid responsive layouts, and interactive micro-animations.
+            </p>
+          </div>
+
+          <div className="p-8 rounded-3xl bg-[#121218] border border-white/10">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl font-bold mb-6 font-mono">03</div>
+            <h3 className="text-xl font-bold text-white mb-3">Cloud & Infrastructure</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Vercel & Netlify CI/CD pipelines, custom DNS configuration, Google Search Console, and Core Web Vitals optimization.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* White-Label Agency Partner Section */}
+      <section id="agency" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
+        <div className="rounded-3xl bg-gradient-to-br from-indigo-950/40 via-[#121218] to-slate-900 border border-indigo-500/30 p-8 sm:p-16 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <span className="text-indigo-400 font-mono text-xs tracking-widest uppercase block mb-3">// 03. AGENCY PARTNERSHIP TRACK</span>
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-6">Your Invisible Front-End Engineering Partner.</h2>
+          <p className="text-slate-300 max-w-2xl text-base leading-relaxed mb-10">
+            Running a digital marketing, branding, or UI/UX agency in the USA, UK, Canada, Europe, or Australia? I help creative studios convert complex Figma designs into pixel-perfect React/Next.js code under strict white-label NDAs.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h4 className="font-bold text-white mb-2">Figma to Code</h4>
+              <p className="text-xs text-slate-400">Zero design drift. Every spacing, font, and animation precisely matched.</p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h4 className="font-bold text-white mb-2">Overflow Capacity</h4>
+              <p className="text-xs text-slate-400">Scale your delivery speed instantly during tight client deadlines.</p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+              <h4 className="font-bold text-white mb-2">100% White-Label</h4>
+              <p className="text-xs text-slate-400">Collaborating seamlessly via Slack and GitHub under your agency brand.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section id="process" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
+        <span className="text-indigo-400 font-mono text-xs tracking-widest uppercase block mb-3">// 04. EXECUTION WORKFLOW</span>
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-16">How We Build Together.</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="p-6 rounded-2xl bg-[#121218] border border-white/10">
+            <span className="text-xs font-mono text-indigo-400 mb-4 block">STEP 01</span>
+            <h4 className="font-bold text-white mb-2">Discovery & Audit</h4>
+            <p className="text-xs text-slate-400">Reviewing wireframes, Figma specs, typography, and technical scope.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-[#121218] border border-white/10">
+            <span className="text-xs font-mono text-indigo-400 mb-4 block">STEP 02</span>
+            <h4 className="font-bold text-white mb-2">Component Engineering</h4>
+            <p className="text-xs text-slate-400">Writing clean TypeScript/React modules with Tailwind CSS.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-[#121218] border border-white/10">
+            <span className="text-xs font-mono text-indigo-400 mb-4 block">STEP 03</span>
+            <h4 className="font-bold text-white mb-2">Performance & QA</h4>
+            <p className="text-xs text-slate-400">Testing across devices, optimizing Core Web Vitals and animations.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-[#121218] border border-white/10">
+            <span className="text-xs font-mono text-indigo-400 mb-4 block">STEP 04</span>
+            <h4 className="font-bold text-white mb-2">Vercel Deployment</h4>
+            <p className="text-xs text-slate-400">Configuring custom domains, SSL certificates, and going live.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-24 px-6 max-w-4xl mx-auto border-t border-white/10">
+        <span className="text-indigo-400 font-mono text-xs tracking-widest uppercase block mb-3 text-center">// 05. FREQUENTLY ASKED QUESTIONS</span>
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-center mb-16">Everything You Need to Know.</h2>
+
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-[#121218] border border-white/10">
+            <h4 className="font-bold text-white mb-2">What technologies do you specialize in?</h4>
+            <p className="text-sm text-slate-400">I specialize in React, Next.js, TypeScript, and Tailwind CSS, building high-performance modern web applications and landing pages.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-[#121218] border border-white/10">
+            <h4 className="font-bold text-white mb-2">Do you work white-label with international agencies?</h4>
+            <p className="text-sm text-slate-400">Yes! I regularly partner with digital marketing and creative agencies across the US, UK, Canada, and Europe as their dedicated front-end development partner.</p>
+          </div>
+          <div className="p-6 rounded-2xl bg-[#121218] border border-white/10">
+            <h4 className="font-bold text-white mb-2">How do time zones work with Islamabad, Pakistan (PKT)?</h4>
+            <p className="text-sm text-slate-400">I maintain flexible working hours and clear async communication channels (Slack/GitHub) ensuring seamless overlap with international time zones.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-24 px-6 max-w-4xl mx-auto border-t border-white/10 text-center">
+        <span className="text-indigo-400 font-mono text-xs tracking-widest uppercase block mb-3">// 06. INITIATE CONTACT</span>
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-6">Let's Build Something Exceptional.</h2>
+        <p className="text-slate-400 text-sm mb-10 max-w-lg mx-auto">
+          Reach out directly via email or copy my professional contact address for project inquiries and agency partnerships.
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button 
+            onClick={copyEmail}
+            className="px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm tracking-wide transition-all shadow-xl shadow-indigo-600/30 w-full sm:w-auto"
+          >
+            {copied ? 'Email Copied to Clipboard ✓' : 'Copy Direct Email Address'}
+          </button>
+          <a 
+            href="mailto:basitbilalarchives072452home@gmail.com"
+            className="px-8 py-4 rounded-xl bg-[#121218] hover:bg-white/10 border border-white/10 text-white font-semibold text-sm tracking-wide transition-all w-full sm:w-auto"
+          >
+            Send Direct Email ↗
+          </a>
+        </div>
+      </section>
+
+      {/* Mega Footer */}
+      <footer className="border-t border-white/10 py-16 px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <span className="text-2xl font-black tracking-tight text-white block">BILAL BASIT</span>
+          <span className="text-xs text-slate-500 font-mono">Front-End Architect & Founder @ Apex Web Studio</span>
+        </div>
+
+        <div className="flex items-center gap-6 text-xs text-slate-400 font-mono">
+          <span>ISB: {time || 'Loading...'}</span>
+          <span>•</span>
+          <span>PKT (UTC+5)</span>
+        </div>
+
+        <div className="flex items-center gap-6 text-sm text-slate-400">
+          <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+          <a href="mailto:basitbilalarchives072452home@gmail.com" className="hover:text-white transition-colors">Email</a>
+        </div>
+      </footer>
+
+    </div>
+  );
+}
